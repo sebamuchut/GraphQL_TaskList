@@ -1,0 +1,6 @@
+functions:
+  toggleTodoResolver:
+    type: resolver
+    handler:
+      code: src/resolvers/myCustomResolver/handler.js
+    schema: src/resolvers/myCustomResolver/schema.graphql

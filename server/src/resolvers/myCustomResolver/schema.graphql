@@ -1,0 +1,8 @@
+type NewSuccessResponse {
+    success: Boolean!
+    epa: String
+}
+
+extend type Mutation {
+  toggleTodoResolver(id: ID, text: String, completed:Boolean): NewSuccessResponse
+}
