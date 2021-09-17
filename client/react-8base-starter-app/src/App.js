@@ -110,21 +110,32 @@ export class LoginUser extends Component{
     }
     return (
       <div>
-        <h3>Log in to see your Task List</h3>
-        <input name="email" onChange={(e) => this.setState({...this.state, email: e.target.value})} value={this.state.email} placeholder="Email" />
-        <input
-          name="password"
-          onChange={(e) => this.setState({...this.state, password: e.target.value})}
-          value={this.state.password}
-          type="password"
-          placeholder="Password"
-        
-        />
-        {
+      {
+        this.state.task ? 
+        <div>
+          <h2>Welcome {this.state.email.split('@')[0]}!</h2>
+          <button onClick={()=>this.setState({email: '', password: '', task: false})}>Logout</button>
+        </div> :
+        <>
+          <h3>Log in to see your Task List</h3>
+          <input name="email" onChange={(e) => this.setState({...this.state, email: e.target.value})} value={this.state.email} placeholder="Email" />
+          <input
+            name="password"
+            onChange={(e) => this.setState({...this.state, password: e.target.value})}
+            value={this.state.password}
+            type="password"
+            placeholder="Password"
+          
+          />
+          <button onClick={loginFunction} >Login</button>
+
+        </>
+      }
+        {/* {
           !this.state.task ? 
           <button onClick={loginFunction} >Login!</button> :
           <button onClick={()=>this.setState({email: '', password: '', task: false})}>Logout</button>
-        }
+        } */}
         {
          this.state.task === true &&
          <div>
