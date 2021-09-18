@@ -3,10 +3,15 @@ import compose from "lodash/flowRight";
 import { HashRouter as Router, withRouter } from "react-router-dom";
 import { EightBaseAppProvider } from '@8base/app-provider';
 import "./App.css";
+import "./Login.css"
 import { withEditTodo, withRemoveTodo, withToggleTodo, withTodos, withUserLogin } from './functions'
 import {Header} from "./components/header";
+import loader from "./loader.gif"
 
 
+export function totest() {
+  return "hello"
+}
 
 class Main extends Component {
   state = { text: ""};
@@ -26,8 +31,7 @@ class Main extends Component {
       <section className="main">
         <ul className="todo-list">
           {
-          todos
-            .filter(todo => {
+          todos.filter(todo => {
               if (location.pathname === "/completed") {
                 return todo.completed;
               }
@@ -44,9 +48,7 @@ class Main extends Component {
                 <div className="view">
                   <input
                     className="toggle"
-                    onChange={() =>
-                      toggleResolver({ id: todo.id, completed: !todo.completed, text: todo.text })
-                    }
+                    onChange={() => toggleResolver({ id: todo.id, completed: !todo.completed, text: todo.text })}
                     checked={todo.completed}
                     type="checkbox"
                   />
@@ -78,7 +80,7 @@ class Main extends Component {
             ))}
         </ul>
       </section>
-    ) : <h3>Log in to see your Task List!</h3>;
+    ) : null
   }
 }
 
@@ -93,7 +95,7 @@ Main = compose(
 )(Main);
 
 export class LoginUser extends Component{
-  state = { email: "", password: "", task: "" };
+  state = { email: "", password: "", task: "", loading: false};
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.task !== this.state.task) {
@@ -104,17 +106,17 @@ export class LoginUser extends Component{
     var response = undefined
     const { loginUser } = this.props;
     const loginFunction = async () => {
+        this.setState({task: '', loading: true})
         response = await loginUser({email: this.state.email, password: this.state.password})
-        console.log(response)
-        response && response.data.userLogin.success && this.setState({task: true})
+        response && response.data.userLogin.success ? this.setState({task: true, loading: false}) : this.setState({task: false, loading: false})
     }
     return (
-      <div>
+      <div className='main-wrapper'>
       {
         this.state.task ? 
-        <div>
+        <div className='welcome'>
+          <button onClick={()=>this.setState({email: '', password: '', task: ''})}>Logout</button>
           <h2>Welcome {this.state.email.split('@')[0]}!</h2>
-          <button onClick={()=>this.setState({email: '', password: '', task: false})}>Logout</button>
         </div> :
         <>
           <h3>Log in to see your Task List</h3>
@@ -128,14 +130,14 @@ export class LoginUser extends Component{
           
           />
           <button onClick={loginFunction} >Login</button>
-
+          {
+            this.state.task===false && <p>Incorrect Email or Password</p>
+          }
         </>
       }
-        {/* {
-          !this.state.task ? 
-          <button onClick={loginFunction} >Login!</button> :
-          <button onClick={()=>this.setState({email: '', password: '', task: false})}>Logout</button>
-        } */}
+      {
+        this.state.loading && <img className = 'gif' src = {loader} alt='loading...'/>
+      }
         {
          this.state.task === true &&
          <div>

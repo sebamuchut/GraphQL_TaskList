@@ -137,16 +137,17 @@ mutation userLogin($email: String!, $password: String!){
 export const withUserLogin = graphql(USER_LOGIN, {
   props: ({ mutate, data }) => ({
     loginUser: async ( {email, password} ) => {
-      let response = await mutate({
-        variables: { email, password }
-      });
-      if(response) {
-        return response
-      } else {
+      try {
+        let response = await mutate({
+          variables: { email, password }
+        });
+        
+          return response
+      } catch (error) {
         return false
       }
     }
-  })  
-  });
+  })
+});
 
 
