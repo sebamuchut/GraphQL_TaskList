@@ -2,7 +2,6 @@
   "name": "8base-react-starter-app",
   "version": "2.0.0",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
     "8base-react-sdk": "^2.3.0",
     "8base-sdk": "^2.3.0",
@@ -23,6 +22,8 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
+    "chance": "^1.1.8",
+    "cypress": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-prettier": "^3.4.0"
@@ -30,7 +31,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "mocha ./src/tests/**/*.spec.js --exit",
+    "test": "react-scripts test",
+    "cypress": "cypress open",
     "lint": "eslint src/**/*.js"
   },
   "browserslist": {
@@ -49,6 +51,4 @@
     "node": ">= 12.x",
     "npm": ">= 6.x"
   }
-  
-  
 }

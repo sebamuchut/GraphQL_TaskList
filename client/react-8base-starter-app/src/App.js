@@ -2,21 +2,14 @@ import React, { Component } from "react";
 import compose from "lodash/flowRight";
 import { HashRouter as Router, withRouter } from "react-router-dom";
 import { EightBaseAppProvider } from '@8base/app-provider';
-import "./App.css";
+import "./AppStyle.css";
 import "./Login.css"
 import { withEditTodo, withRemoveTodo, withToggleTodo, withTodos, withUserLogin } from './functions'
 import {Header} from "./components/header";
 import loader from "./loader.gif"
 
-
-export function totest() {
-  return "hello"
-}
-
 class Main extends Component {
   state = { text: ""};
-
-   
   
   render() {
     const {
@@ -51,12 +44,14 @@ class Main extends Component {
                     onChange={() => toggleResolver({ id: todo.id, completed: !todo.completed, text: todo.text })}
                     checked={todo.completed}
                     type="checkbox"
+                    title="Mark task as completed"
                   />
                   
                   <label>{todo.text.charAt(0).toUpperCase() + todo.text.slice(1)}</label>
                   <button
                     onClick={() => removeTodo(todo.id)}
                     className="destroy"
+                    title='Delete task'
                   >X</button>
                   {
                     !todo.completed ? 
@@ -162,7 +157,7 @@ class App extends Component {
     return (
       <Router>
         <EightBaseAppProvider uri={ENDPOINT_URL}>
-          {({ loading }) => loading ? <div>"Loading..."</div> : (
+          {({ loading }) => loading ? <img className = 'gif' src = {loader} alt='loading...'/> : (
             <div className="todoapp">
               <LoginUser />
             </div>

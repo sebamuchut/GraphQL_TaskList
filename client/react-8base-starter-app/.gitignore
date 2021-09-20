@@ -4,6 +4,7 @@
 .eslintcache
 .idea
 .build
+.env.json
 build
 coverage
 es
