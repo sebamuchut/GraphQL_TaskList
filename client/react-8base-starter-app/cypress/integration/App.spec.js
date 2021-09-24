@@ -25,38 +25,29 @@ describe('App testing', () => {
         cy.contains('Incorrect')
 
     } )
-    xit('Correct login', () => {
+    it('Correct login', () => {
         cy.contains('Login').click()
         cy.get('[placeholder="Email"]').first().type(Cypress.env('USER_EMAIL'))
         cy.get('[placeholder="Password"]').last().type(Cypress.env('USER_PASSWORD'))
         cy.contains('Login').click()
-        cy.wait(2000)
-        cy.contains('Welcome')
-
-    } )
-    it('Correct login', () => {
-        cy.contains('Login').click()
-        cy.get('[placeholder="Email"]').first().type('sebamuchut@yahoo.com.ar')
-        cy.get('[placeholder="Password"]').last().type('Sebamuchut8base@')
-        cy.contains('Login').click()
-        cy.wait(2000)
+        cy.wait(8000)
         cy.contains('Welcome')
 
     } )
     it('User Logout', () => {
-        cy.get('[placeholder="Email"]').first().type('sebamuchut@yahoo.com.ar')
-        cy.get('[placeholder="Password"]').last().type('Sebamuchut8base@')
+        cy.get('[placeholder="Email"]').first().type(Cypress.env('USER_EMAIL'))
+        cy.get('[placeholder="Password"]').last().type(Cypress.env('USER_PASSWORD'))
         cy.contains('Login').click()
-        cy.wait(2000)
+        cy.wait(5000)
         cy.contains('Welcome')
         cy.contains('Logout').click()
         cy.contains('Login')
     } )
-    it.only('Add new task', () => {
-        cy.get('[placeholder="Email"]').first().type('sebamuchut@yahoo.com.ar')
-        cy.get('[placeholder="Password"]').last().type('Sebamuchut8base@')
+    it('Add new task', () => {
+        cy.get('[placeholder="Email"]').first().type(Cypress.env('USER_EMAIL'))
+        cy.get('[placeholder="Password"]').last().type(Cypress.env('USER_PASSWORD'))
         cy.contains('Login').click()
-        cy.wait(3000)
+        cy.wait(5000)
         cy.contains('Welcome')
         cy.get('[placeholder="Add new task!"]').type('Testing').type('{enter}')
         cy.contains('Testing')
